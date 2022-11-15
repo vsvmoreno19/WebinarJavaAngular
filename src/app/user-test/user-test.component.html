@@ -1,0 +1,91 @@
+
+<div class="content">
+  <mat-card class="cardContainer">
+    <div>
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+      
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+        </ng-container>
+      
+        <!-- Description Column -->
+        <ng-container matColumnDef="description">
+          <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+        </ng-container>
+
+       <!-- Edit Column -->
+       <ng-container matColumnDef="edit">
+        <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
+        <mat-cell *matCellDef="let element"> 
+          <button type="submit" (click)="edit(element)" mat-raised-button>
+            Edit
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      
+       <!-- Delete Column -->
+       <ng-container matColumnDef="delete">
+        <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
+        <mat-cell *matCellDef="let element"> 
+          <button type="submit" (click)="delete(element)" mat-raised-button>
+            Delete
+          </button>
+        </mat-cell>
+      </ng-container>
+    
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    </div>
+  
+    <div class="p-t-15">
+      <button (click)="addData()" type="button" class="mat-fab" title="Compose">
+        <span><img src="assets/compose.svg"></span></button>
+    </div>
+      
+  </mat-card>
+
+  <div *ngIf="showFiller">
+  <div class="sidebar-slider" [class.sidebar-slide-in]="showFiller">
+    <div
+        class="sidebar-close"
+        (click)="showFiller = !showFiller"
+    >
+        X
+    </div>
+	  <div class="sidebar-content">
+      <form novalidate [formGroup]="group">
+        <label>
+          <span>Name</span>
+          <input class="dipTab" 
+            type="text"
+            placeholder="Your full name"
+            formControlName="name">
+        </label>
+        <label>
+            <span>Description</span>
+            <input class="dipTab"
+              type="text"
+              placeholder="Your description"
+              formControlName="description">
+          </label>
+      </form>
+      <br>
+    <button *ngIf="showAdd" type="submit" (click)="save()" mat-raised-button>
+      Save
+    </button>
+    <button *ngIf="showEdit" type="submit" (click)="up()" mat-raised-button>
+      Update
+    </button>
+	  </div>
+  </div>
+</div>
+
+</div>
